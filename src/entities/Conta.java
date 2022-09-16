@@ -81,4 +81,9 @@ public class Conta {
 		return aux;
 	}
 	
+	public void transferencia(double valor, Conta conta) {
+		
+		conta.deposito(valor);
+	}
+	
 }

@@ -50,7 +50,7 @@ public class ContaTests {
 		//Arrange
 		double valorSaque = 50.0;
 		double esperado = 100.0;
-		Conta conta = new Conta(1L, "1234", "Mirahy", 150.0);
+		Conta conta = new Conta(1L, "3030", "Mirahy", 150.0);
 		
 		//Act
 		conta.saque(valorSaque);
@@ -64,7 +64,7 @@ public class ContaTests {
 		
 		Assertions.assertThrows(IllegalArgumentException.class, ()->{
 			
-			Conta conta = new Conta(1L, "1234", "Mirahy", 150.0);
+			Conta conta = new Conta(1L, "3030", "Mirahy", 150.0);
 			conta.saque(250.0);
 			
 		});
@@ -74,12 +74,28 @@ public class ContaTests {
 	public void saqueValorTotalDeveriaRetornarSaldoZero(){
 		double esperado = 0.0;
 		double saldoInicial = 250.0;
-		Conta conta = new Conta(1L, "1234", "Mirahy", saldoInicial);
+		Conta conta = new Conta(1L, "3030", "Mirahy", saldoInicial);
 		
 		double resultado = conta.saqueValorTotal();
 		
 		Assertions.assertTrue(esperado == conta.getSaldo());
 		Assertions.assertTrue(saldoInicial == resultado);
+	}
+	
+	@Test
+	public void transferenciaDeveraRealizarSaqueContaOrigemDepositoContaDestino(){
+		double saldoEsperadocontaOrigem = 200.00;
+		double saldoEsperadocontaDestino = 300.00;
+		double saldoInicial = 250.0;
+		double valorSaque = 50.0;
+		Conta contaOrigem = new Conta(1L, "3030", "Mirahy", saldoInicial);
+		Conta contaDestino = new Conta(1L, "3031", "Mirahy", saldoInicial);
+		
+		contaOrigem.saque(valorSaque);
+		contaOrigem.transferencia(valorSaque, contaDestino);
+		
+		Assertions.assertTrue(saldoEsperadocontaOrigem == contaOrigem.getSaldo());
+		Assertions.assertTrue(saldoEsperadocontaDestino == contaDestino.getSaldo());
 	}
 }
 
